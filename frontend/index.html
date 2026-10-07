@@ -71,9 +71,6 @@
           <button onclick="switchTab('community')" id="nav-community" class="tab-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
             🤝 Peer Network
           </button>
-          <button onclick="switchTab('architecture')" id="nav-architecture" class="tab-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-amber-300 hover:bg-amber-500/10 transition-all">
-            ⚡ Tech Architecture
-          </button>
         </nav>
 
         <!-- Right: Student Profile Pill & Interactive Switcher -->
@@ -222,72 +219,6 @@
       <!-- Projects Grid -->
       <div id="community-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <!-- Rendered by JS -->
-      </div>
-    </div>
-
-    <!-- ======================================================== -->
-    <!-- TAB 5: TECHNICAL ARCHITECTURE & LIVE API INSPECTOR       -->
-    <!-- ======================================================== -->
-    <div id="tab-content-architecture" class="tab-pane hidden space-y-6">
-      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-        <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-          <span>⚡ Technical Approach & System Architecture</span>
-          <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-0.5 rounded-full">Slide 4 Implementation</span>
-        </h2>
-        <p class="text-sm text-slate-500 mt-1">Built strictly with the technologies defined in our architecture blueprint: FastAPI, NLP Vector Matching, and Tailwind CSS.</p>
-
-        <!-- Architecture 3-Tier Flow Diagram -->
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
-            <div class="w-8 h-8 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-sm mb-2">1</div>
-            <h3 class="font-bold text-slate-900 text-sm">Data Ingestion Layer</h3>
-            <p class="text-xs text-slate-600 mt-1">Automated scrapers & RSS connectors parsing institutional portals, corporate diversity programs (Google, Adobe), and public databases.</p>
-            <div class="mt-3 text-[11px] font-mono-code bg-white p-2 rounded border border-slate-200 text-slate-700">
-              Tech: Python Requests, BeautifulSoup, FastJSON
-            </div>
-          </div>
-
-          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
-            <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm mb-2">2</div>
-            <h3 class="font-bold text-slate-900 text-sm">AI Recommendation Engine</h3>
-            <p class="text-xs text-slate-600 mt-1">Computes multi-variable compatibility score: Branch affinity (30%), CGPA compliance (25%), Year eligibility (20%), and Semantic skill overlap (25%).</p>
-            <div class="mt-3 text-[11px] font-mono-code bg-white p-2 rounded border border-slate-200 text-slate-700">
-              Tech: FastAPI, MiniLM/BERT embeddings, pgvector
-            </div>
-          </div>
-
-          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
-            <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm mb-2">3</div>
-            <h3 class="font-bold text-slate-900 text-sm">Presentation & Client App</h3>
-            <p class="text-xs text-slate-600 mt-1">Cross-platform web & mobile client with instant responsive caching, OAuth 2.0 institutional auth, and calendar synchronization.</p>
-            <div class="mt-3 text-[11px] font-mono-code bg-white p-2 rounded border border-slate-200 text-slate-700">
-              Tech: Next.js / Tailwind CSS, React Native / Flutter
-            </div>
-          </div>
-        </div>
-
-        <!-- Live API Payload Tester -->
-        <div class="mt-6 pt-6 border-t border-slate-100">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center space-x-2">
-              <h3 class="font-bold text-slate-800 text-sm">Interactive FastAPI Endpoint Inspection</h3>
-              <span id="backend-status-tag" class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">● FastAPI Service Online</span>
-            </div>
-            <span class="text-xs font-mono-code bg-slate-900 text-emerald-400 px-2 py-0.5 rounded">POST /api/match</span>
-          </div>
-
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Incoming Student Profile Payload (JSON)</label>
-              <pre id="api-req-view" class="font-mono-code text-xs bg-slate-900 text-slate-200 p-3.5 rounded-xl overflow-x-auto border border-slate-800 h-64"></pre>
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 uppercase mb-1">AI Engine Output (Reranked Matches)</label>
-              <pre id="api-res-view" class="font-mono-code text-xs bg-slate-900 text-emerald-300 p-3.5 rounded-xl overflow-x-auto border border-slate-800 h-64"></pre>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -783,8 +714,6 @@
         `;
         container.appendChild(card);
       });
-
-      updateApiInspector();
     }
 
     function renderMentors() {
@@ -924,7 +853,6 @@
       if (tabId === 'tracker') renderTracker();
       if (tabId === 'mentorship') renderMentors();
       if (tabId === 'community') renderCommunity();
-      if (tabId === 'architecture') updateApiInspector();
     }
 
     function filterCategory(cat) {
@@ -1084,74 +1012,11 @@
       }, 3500);
     }
 
-    // ==========================================
-    // API INSPECTOR DISPLAY
-    // ==========================================
-    async function updateApiInspector() {
-      const reqPayload = {
-        student_id: "std_01",
-        name: currentProfile.name,
-        branch: currentProfile.branch,
-        academic_year: currentProfile.year,
-        cgpa: currentProfile.cgpa,
-        skills: currentProfile.skills,
-        device: "Web / Mobile Client",
-        auth_status: "Verified_Institutional_SSO"
-      };
-
-      document.getElementById('api-req-view').textContent = JSON.stringify(reqPayload, null, 2);
-
-      // Attempt live fetch to FastAPI backend if available
-      try {
-        const response = await fetch('/api/match', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(reqPayload)
-        });
-
-        if (response.ok) {
-          const liveData = await response.json();
-          document.getElementById('api-res-view').textContent = JSON.stringify(liveData, null, 2);
-          const badge = document.getElementById('backend-status-tag');
-          if (badge) {
-            badge.className = "text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200";
-            badge.textContent = "● FastAPI Service Online (Port 8000)";
-          }
-          return;
-        }
-      } catch (err) {
-        // Fallback to client-side computation
-      }
-
-      const resPayload = opportunitiesData.map(opp => {
-        const m = calculateAiMatch(currentProfile, opp);
-        return {
-          opportunity_id: opp.id,
-          title: opp.title,
-          computed_match_score: `${m.score}%`,
-          is_eligible: m.isEligible,
-          breakdown: {
-            branch_match: m.branchMatch,
-            cgpa_compliant: m.cgpaEligible,
-            year_compliant: m.yearEligible
-          }
-        };
-      }).sort((a,b) => parseInt(b.computed_match_score) - parseInt(a.computed_match_score));
-
-      document.getElementById('api-res-view').textContent = JSON.stringify(resPayload, null, 2);
-      const badge = document.getElementById('backend-status-tag');
-      if (badge) {
-        badge.className = "text-[11px] font-semibold px-2 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-200";
-        badge.textContent = "● Standalone Client Mode";
-      }
-    }
-
     // Initialize on load
     window.addEventListener('DOMContentLoaded', () => {
       renderOpportunities();
       renderMentors();
       renderCommunity();
-      updateApiInspector();
     });
   </script>
 </body>
