@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONECT - Women in STEM Career & Mentorship Platform</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (typeof tailwind === 'undefined') {
+      document.write('<script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"><\/script>');
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+
+  <!-- TOP HEADER / BRANDING BANNER -->
+  <header class="bg-[#0b1e36] text-white border-b border-slate-700/60 sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Left: Logo & IEEE Affiliation -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 via-amber-500 to-indigo-500 flex items-center justify-center font-extrabold text-slate-950 text-xl shadow-lg shadow-amber-500/20">
+            C
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-300 via-white to-sky-200 bg-clip-text text-transparent">CONECT</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full">IEEE WIE SAMWAD</span>
+            </div>
+            <p class="text-xs text-slate-400 hidden sm:block">AI Career Discovery & Mentorship Ecosystem for Women in STEM</p>
+          </div>
+        </div>
+
+        <!-- Center: Navigation Tabs -->
+        <nav class="hidden md:flex items-center space-x-1">
+          <button onclick="switchTab('opportunities')" id="nav-opportunities" class="tab-btn px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-all bg-sky-500/20 text-sky-300 border border-sky-400/30">
+            🎯 Opportunities Hub
+          </button>
+          <button onclick="switchTab('mentorship')" id="nav-mentorship" class="tab-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
+            👩‍💼 1-on-1 Mentors
+          </button>
+          <button onclick="switchTab('tracker')" id="nav-tracker" class="tab-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
+            ⏳ Deadline Tracker
+          </button>
+          <button onclick="switchTab('community')" id="nav-community" class="tab-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
+            🤝 Peer Network
+          </button>
+        </nav>
+
+        <!-- Right: Student Profile Pill & Interactive Switcher -->
+        <div class="flex items-center space-x-3">
+          <button onclick="openProfileModal()" class="flex items-center space-x-2 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 rounded-full py-1.5 px-3 transition-colors text-left group">
+            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-pink-500 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shadow-inner">
+              AS
+            </div>
+            <div class="hidden lg:block text-xs">
+              <div class="font-semibold text-slate-200 group-hover:text-amber-300 flex items-center">
+                <span id="header-student-name">Ananya Sharma</span>
+                <span class="ml-1 text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 rounded">CGPA <span id="header-cgpa">8.85</span></span>
+              </div>
+              <div class="text-[11px] text-slate-400" id="header-student-info">CSE • Year 3</div>
+            </div>
+            <span class="text-xs text-slate-400 group-hover:text-white">✏️</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- SUBHEADER / QUICK STATS BAR -->
+  <div class="bg-gradient-to-r from-[#0d2a4d] to-[#123966] text-white py-3 px-4 shadow-inner border-b border-sky-900/30">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+      <div class="flex items-center space-x-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-300">Live AI Match Engine active for:</span>
+        <span class="font-semibold text-amber-300" id="stat-branch-label">B.Tech Computer Science (3rd Year)</span>
+      </div>
+      <div class="flex items-center space-x-4 text-slate-300">
+        <div><strong class="text-white" id="stat-count-eligible">4</strong> Eligible Opportunities</div>
+        <div class="hidden sm:block">•</div>
+        <div><strong class="text-white">4</strong> Verified Female Role Models</div>
+        <div class="hidden sm:block">•</div>
+        <div class="text-amber-300 font-medium">Next Deadline: <span class="underline">Adobe WIT (24 Days)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: OPPORTUNITIES HUB (DEFAULT)                       -->
+    <!-- ======================================================== -->
+    <div id="tab-content-opportunities" class="tab-pane space-y-6">
+      
+      <!-- Filter and AI Match Score Banner -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+            <span>🎯 Tailored Opportunities for Women in STEM</span>
+            <span class="text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-0.5 rounded-full">NLP Match Enabled</span>
+          </h1>
+          <p class="text-sm text-slate-500 mt-1">Ranked dynamically by branch affinity, CGPA threshold, and semantic skill overlap.</p>
+        </div>
+
+        <!-- Filter pills -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterCategory('All')" class="cat-pill active px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-white shadow-sm transition-all" data-cat="All">All Categories</button>
+          <button onclick="filterCategory('Scholarship')" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all" data-cat="Scholarship">Scholarships</button>
+          <button onclick="filterCategory('Internship')" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all" data-cat="Internship">Internships</button>
+          <button onclick="filterCategory('Fellowship')" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all" data-cat="Fellowship">Fellowships</button>
+          <button onclick="filterCategory('Research Grant')" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all" data-cat="Research Grant">Research Grants</button>
+        </div>
+      </div>
+
+      <!-- Opportunities Grid -->
+      <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: 1-ON-1 MENTORSHIP HUB                             -->
+    <!-- ======================================================== -->
+    <div id="tab-content-mentorship" class="tab-pane hidden space-y-6">
+      <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-[#0b1e36] text-white rounded-2xl p-6 shadow-md border border-indigo-800">
+        <div class="max-w-2xl">
+          <span class="text-xs uppercase font-extrabold tracking-wider bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded-md">Verified Female Role Models</span>
+          <h2 class="text-2xl font-black mt-2">Connect Directly with Inspiring Women in Tech</h2>
+          <p class="text-sm text-slate-300 mt-1">Book 1-on-1 virtual sessions for resume teardowns, research guidance, and technical interview strategies.</p>
+        </div>
+      </div>
+
+      <!-- Mentors Grid -->
+      <div id="mentors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: DEADLINE TRACKER & PIPELINE                       -->
+    <!-- ======================================================== -->
+    <div id="tab-content-tracker" class="tab-pane hidden space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900">⏳ Automated Application & Deadline Pipeline</h2>
+            <p class="text-sm text-slate-500">Multi-stage tracker with automated reminders at T-7, T-3, and T-1 days.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="syncCalendarAlert()" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-sm transition-all">
+              <span>📅 Sync with Google Calendar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Deadline Urgency Table -->
+        <div class="mt-5 overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-600">
+            <thead class="bg-slate-50 text-slate-700 uppercase text-xs font-bold tracking-wider">
+              <tr>
+                <th class="py-3 px-4">Opportunity</th>
+                <th class="py-3 px-4">Category</th>
+                <th class="py-3 px-4">Deadline</th>
+                <th class="py-3 px-4">Days Left</th>
+                <th class="py-3 px-4">Pipeline Status</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tracker-table-body" class="divide-y divide-slate-100">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: PEER NETWORK & PROJECT SHOWCASE                   -->
+    <!-- ======================================================== -->
+    <div id="tab-content-community" class="tab-pane hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900">🤝 Peer Collaboration & Hackathon Teammates</h2>
+          <p class="text-sm text-slate-500">A safe, moderated space for female engineering students to build projects and collaborate.</p>
+        </div>
+        <button onclick="openNewProjectModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-sm transition-all">
+          <span>➕ Post Project / Request Teammates</span>
+        </button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div id="community-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- MODALS                                                   -->
+  <!-- ======================================================== -->
+
+  <!-- 1. EDIT PROFILE MODAL (Demonstrates real-time AI re-ranking) -->
+  <div id="modal-profile" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h3 class="text-lg font-extrabold text-slate-900">✏️ Customize Student Profile</h3>
+        <button onclick="closeProfileModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">×</button>
+      </div>
+
+      <p class="text-xs text-slate-500 mt-2">Adjust your academic details to see how CONECT's AI match engine recalculates match percentages and eligibility in real time!</p>
+
+      <form id="profile-form" onsubmit="saveProfile(event)" class="mt-4 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Full Name</label>
+          <input type="text" id="input-name" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none" required>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Engineering Branch</label>
+            <select id="input-branch" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none">
+              <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Electronics & Communication">Electronics & Communication</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Biotechnology">Biotechnology</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Academic Year</label>
+            <select id="input-year" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none">
+              <option value="1">1st Year (Freshman)</option>
+              <option value="2">2nd Year (Sophomore)</option>
+              <option value="3">3rd Year (Pre-final)</option>
+              <option value="4">4th Year (Final)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block text-xs font-bold text-slate-700 uppercase">Cumulative CGPA</label>
+            <span id="cgpa-val-label" class="text-xs font-extrabold text-sky-600 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">8.85</span>
+          </div>
+          <input type="range" id="input-cgpa" min="6.0" max="10.0" step="0.05" value="8.85" oninput="updateCgpaLabel(this.value)" class="w-full accent-sky-600">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Technical Skills (Comma separated)</label>
+          <input type="text" id="input-skills" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Python, Machine Learning, React, C++">
+        </div>
+
+        <div class="pt-3 flex justify-end space-x-2">
+          <button type="button" onclick="closeProfileModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 rounded-lg shadow-sm">Save & Re-Score Matches</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. BOOK MENTOR MODAL -->
+  <div id="modal-book-mentor" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <h3 class="text-lg font-extrabold text-slate-900">📅 Schedule Mentorship</h3>
+          <p class="text-xs text-slate-500" id="booking-mentor-name">With Mentor</p>
+        </div>
+        <button onclick="closeBookModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">×</button>
+      </div>
+
+      <div class="mt-4 space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Select Available Slot</label>
+          <select id="booking-slot-select" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Consultation Topic</label>
+          <select id="booking-topic-select" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
+            <option>Scholarship / Fellowship Application Review</option>
+            <option>Technical Resume & Portfolio Teardown</option>
+            <option>System Design & Coding Interview Strategy</option>
+            <option>Research Paper Guidance & Lab Applications</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Questions / Context (Optional)</label>
+          <textarea id="booking-notes" rows="2" class="w-full text-sm border border-slate-300 rounded-lg p-2.5 outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Briefly describe what you would like feedback on..."></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end space-x-2">
+          <button onclick="closeBookModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+          <button onclick="confirmMentorBooking()" class="px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm">Confirm Session</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. POST PROJECT MODAL -->
+  <div id="modal-project" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h3 class="text-lg font-extrabold text-slate-900">🤝 Post STEM Project / Find Teammates</h3>
+        <button onclick="closeProjectModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">×</button>
+      </div>
+
+      <div class="mt-4 space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Project Title</label>
+          <input type="text" id="new-proj-title" placeholder="e.g. AI Crop Disease Detector for IEEE Hackathon" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Domain / Field</label>
+          <input type="text" id="new-proj-domain" placeholder="e.g. Computer Vision / Agritech" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Project Summary</label>
+          <textarea id="new-proj-desc" rows="3" placeholder="Explain the problem and what you are building..." class="w-full text-sm border border-slate-300 rounded-lg p-2.5 outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Roles Needed (Comma separated)</label>
+          <input type="text" id="new-proj-roles" placeholder="e.g. Backend Developer, UI/UX Designer" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 outline-none">
+        </div>
+
+        <div class="pt-3 flex justify-end space-x-2">
+          <button onclick="closeProjectModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+          <button onclick="submitNewProject()" class="px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm">Publish to Network</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none border border-slate-700">
+    <span id="toast-icon" class="text-lg">✅</span>
+    <span id="toast-msg" class="text-xs font-semibold">Action completed successfully</span>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT STATE & AI LOGIC                              -->
+  <!-- ======================================================== -->
+  <script>
+    // Initial Student Profile State
+    let currentProfile = {
+      name: "Ananya Sharma",
+      branch: "Computer Science & Engineering",
+      year: 3,
+      cgpa: 8.85,
+      skills: ["Python", "Machine Learning", "FastAPI", "React", "Data Structures"]
+    };
+
+    // Opportunities Database
+    const opportunitiesData = [
+      {
+        id: "opp-01",
+        title: "Google Generation Scholarship (APAC)",
+        organization: "Google",
+        category: "Scholarship",
+        description: "Merit-and-diversity scholarship for female students pursuing computer science or related engineering degrees with strong leadership.",
+        requiredBranches: ["Computer Science & Engineering", "Information Technology", "Electronics & Communication"],
+        minCgpa: 8.0,
+        eligibleYears: [1, 2, 3],
+        requiredSkills: ["Python", "Data Structures", "Algorithms"],
+        deadline: "2026-11-15",
+        deadlineText: "Nov 15, 2026 (39 Days Left)",
+        perks: "$2,500 USD Tuition Grant + Google Mentorship Retreat",
+        isGenderSpecific: true,
+        logoBg: "bg-red-50 text-red-600 border-red-200"
+      },
+      {
+        id: "opp-02",
+        title: "Adobe Women-in-Technology Scholarship",
+        organization: "Adobe Research",
+        category: "Scholarship",
+        description: "Recognizing outstanding female engineering students who excel in computing, software architecture, and innovation.",
+        requiredBranches: ["Computer Science & Engineering", "Information Technology", "Artificial Intelligence"],
+        minCgpa: 8.5,
+        eligibleYears: [2, 3],
+        requiredSkills: ["Machine Learning", "Python", "Software Development"],
+        deadline: "2026-10-31",
+        deadlineText: "Oct 31, 2026 (24 Days Left)",
+        perks: "$10,000 USD Grant + Adobe Summer Internship + Mentorship",
+        isGenderSpecific: true,
+        logoBg: "bg-rose-50 text-rose-600 border-rose-200"
+      },
+      {
+        id: "opp-03",
+        title: "Amazon WoW Mentorship & SDE Internship",
+        organization: "Amazon",
+        category: "Internship",
+        description: "Structured female student development initiative offering technical skill-building, webinars, and fast-track interviews.",
+        requiredBranches: ["Computer Science & Engineering", "Information Technology", "Electronics & Communication", "Electrical Engineering"],
+        minCgpa: 7.0,
+        eligibleYears: [2, 3, 4],
+        requiredSkills: ["Data Structures", "Python", "Java"],
+        deadline: "2026-11-05",
+        deadlineText: "Nov 05, 2026 (29 Days Left)",
+        perks: "Fast-Track SDE Intern Loop + 1-on-1 Mentorship",
+        isGenderSpecific: true,
+        logoBg: "bg-amber-50 text-amber-700 border-amber-200"
+      },
+      {
+        id: "opp-04",
+        title: "DESIS Ascend Educare Diversity Fellowship",
+        organization: "D. E. Shaw India",
+        category: "Fellowship",
+        description: "Premier educational fellowship for talented female sophomores and pre-final year engineering students.",
+        requiredBranches: ["Computer Science & Engineering", "Information Technology"],
+        minCgpa: 8.0,
+        eligibleYears: [2, 3],
+        requiredSkills: ["Python", "Algorithms", "Problem Solving"],
+        deadline: "2026-11-20",
+        deadlineText: "Nov 20, 2026 (44 Days Left)",
+        perks: "INR 1,50,000 Grant + Executive Mentorship + Direct Interview",
+        isGenderSpecific: true,
+        logoBg: "bg-blue-50 text-blue-600 border-blue-200"
+      },
+      {
+        id: "opp-05",
+        title: "IEEE Women in Engineering (WIE) Project Grant",
+        organization: "IEEE WIE",
+        category: "Research Grant",
+        description: "Seed funding for female undergraduate research teams building smart technology and engineering solutions.",
+        requiredBranches: ["Computer Science & Engineering", "Electronics & Communication", "Electrical Engineering", "Mechanical Engineering", "Biotechnology"],
+        minCgpa: 7.5,
+        eligibleYears: [1, 2, 3, 4],
+        requiredSkills: ["Prototyping", "Research", "System Design"],
+        deadline: "2026-12-10",
+        deadlineText: "Dec 10, 2026 (64 Days Left)",
+        perks: "$1,000 Project Seed Grant + IEEE Conference Publication Support",
+        isGenderSpecific: true,
+        logoBg: "bg-purple-50 text-purple-700 border-purple-200"
+      },
+      {
+        id: "opp-06",
+        title: "CERN Summer Student Research Programme",
+        organization: "CERN (Switzerland)",
+        category: "Fellowship",
+        description: "Join day-to-day experimental physics, advanced engineering, and computing teams in Geneva for 8-13 weeks.",
+        requiredBranches: ["Computer Science & Engineering", "Electronics & Communication", "Mechanical Engineering"],
+        minCgpa: 8.5,
+        eligibleYears: [3, 4],
+        requiredSkills: ["Python", "C++", "Data Analysis"],
+        deadline: "2026-11-28",
+        deadlineText: "Nov 28, 2026 (52 Days Left)",
+        perks: "Full Swiss Living Allowance + International Lab Access",
+        isGenderSpecific: false,
+        logoBg: "bg-emerald-50 text-emerald-700 border-emerald-200"
+      }
+    ];
+
+    // Mentors Database
+    const mentorsData = [
+      {
+        id: "men-01",
+        name: "Dr. Radhika Sen",
+        title: "Principal Research Scientist",
+        company: "Google DeepMind",
+        domain: "Artificial Intelligence & NLP",
+        exp: "9 yrs",
+        rating: 4.95,
+        sessions: 68,
+        slots: ["Fri 6:00 PM IST", "Sat 11:00 AM IST", "Sun 4:00 PM IST"],
+        avatarBg: "bg-indigo-600",
+        bio: "Specializes in helping female students break into tier-1 AI research labs and win competitive fellowships."
+      },
+      {
+        id: "men-02",
+        name: "Pooja Kulkarni",
+        title: "Senior Software Engineer",
+        company: "Microsoft Azure",
+        domain: "Distributed Systems & Cloud",
+        exp: "6 yrs",
+        rating: 4.90,
+        sessions: 52,
+        slots: ["Thu 7:30 PM IST", "Sat 2:00 PM IST"],
+        avatarBg: "bg-teal-600",
+        bio: "Former IEEE WIE chair; specializes in system design interview prep, resume roast, and tech hiring."
+      },
+      {
+        id: "men-03",
+        name: "Anupriya Ghosh",
+        title: "Director of Product",
+        company: "Adobe India",
+        domain: "Product & Tech Leadership",
+        exp: "11 yrs",
+        rating: 4.98,
+        sessions: 89,
+        slots: ["Wed 8:00 PM IST", "Sun 10:00 AM IST"],
+        avatarBg: "bg-amber-600",
+        bio: "Empowering women in engineering to transition into high-impact product management and international scholarships."
+      },
+      {
+        id: "men-04",
+        name: "Suhani Verma",
+        title: "Hardware Systems Architect",
+        company: "Qualcomm / ISRO Collaborator",
+        domain: "VLSI & Embedded Systems",
+        exp: "7 yrs",
+        rating: 4.88,
+        sessions: 41,
+        slots: ["Sat 5:00 PM IST", "Sun 6:00 PM IST"],
+        avatarBg: "bg-rose-600",
+        bio: "Guiding female electrical and ECE students through core engineering roles, semiconductor internships, and thesis proposals."
+      }
+    ];
+
+    // Community Projects Database
+    let communityProjects = [
+      {
+        id: "proj-01",
+        title: "EcoSense: IoT + ML for Clean Water Monitoring in Rural Schools",
+        author: "Kavya Nair (3rd Year CSE, MANIT)",
+        domain: "IoT & Machine Learning",
+        description: "Developing low-cost water quality telemetry nodes for local community schools. Need a teammate skilled in embedded firmware (ESP32) and dashboard UI.",
+        roles: ["Embedded Systems (ECE)", "React/Tailwind Frontend"],
+        time: "2 hours ago"
+      },
+      {
+        id: "proj-02",
+        title: "Smart Braille Pad - IEEE WIE Student Hackathon Team",
+        author: "Meera Iyer (2nd Year ECE, NIT Trichy)",
+        domain: "Assistive Technology & Hardware",
+        description: "Preparing our prototype submission for the upcoming national WIE Hackathon. Seeking a fellow woman engineer to co-lead the PCB design and documentation.",
+        roles: ["Hardware/KiCAD Designer", "Python/Backend Developer"],
+        time: "Yesterday"
+      }
+    ];
+
+    // Tracker Database
+    let trackerApplications = [
+      { id: "opp-02", status: "In Progress", urgency: "Urgent" },
+      { id: "opp-03", status: "Saved", urgency: "Moderate" },
+      { id: "opp-01", status: "Saved", urgency: "Moderate" },
+      { id: "opp-04", status: "Saved", urgency: "Normal" }
+    ];
+
+    let activeCategory = "All";
+    let activeBookingMentor = null;
+
+    // ==========================================
+    // AI MATCH ENGINE FUNCTION
+    // ==========================================
+    function calculateAiMatch(profile, opp) {
+      // 1. Branch match (30 pts)
+      const branchMatch = opp.requiredBranches.includes(profile.branch);
+      const branchScore = branchMatch ? 30 : 10;
+
+      // 2. CGPA check (25 pts)
+      const cgpaEligible = profile.cgpa >= opp.minCgpa;
+      let cgpaScore = 0;
+      if (cgpaEligible) {
+        cgpaScore = 25;
+      } else {
+        const diff = opp.minCgpa - profile.cgpa;
+        cgpaScore = Math.max(0, Math.round(25 - (diff * 20)));
+      }
+
+      // 3. Year check (20 pts)
+      const yearEligible = opp.eligibleYears.includes(Number(profile.year));
+      const yearScore = yearEligible ? 20 : 5;
+
+      // 4. Skills overlap (25 pts)
+      const pSkills = profile.skills.map(s => s.toLowerCase().trim());
+      const oSkills = opp.requiredSkills.map(s => s.toLowerCase().trim());
+      const matchedSkills = oSkills.filter(s => pSkills.some(ps => ps.includes(s) || s.includes(ps)));
+      const skillScore = Math.round((matchedSkills.length / Math.max(1, oSkills.length)) * 25);
+
+      const totalScore = Math.min(98, branchScore + cgpaScore + yearScore + skillScore);
+      const isEligible = branchMatch && cgpaEligible && yearEligible;
+
+      return {
+        score: totalScore,
+        isEligible: isEligible,
+        branchMatch: branchMatch,
+        cgpaEligible: cgpaEligible,
+        yearEligible: yearEligible,
+        matchedSkills: matchedSkills
+      };
+    }
+
+    // ==========================================
+    // RENDER FUNCTIONS
+    // ==========================================
+
+    function renderOpportunities() {
+      const container = document.getElementById('opportunities-grid');
+      container.innerHTML = '';
+
+      // Compute match for each
+      const evaluated = opportunitiesData.map(opp => {
+        const match = calculateAiMatch(currentProfile, opp);
+        return { opp, match };
+      });
+
+      // Filter by category
+      const filtered = evaluated.filter(item => {
+        if (activeCategory === "All") return true;
+        return item.opp.category.toLowerCase() === activeCategory.toLowerCase();
+      });
+
+      // Sort by match score descending
+      filtered.sort((a, b) => b.match.score - a.match.score);
+
+      // Update stat count
+      const eligibleCount = evaluated.filter(e => e.match.isEligible).length;
+      document.getElementById('stat-count-eligible').textContent = eligibleCount;
+
+      filtered.forEach(({ opp, match }) => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all p-5 flex flex-col justify-between group";
+
+        // Score Badge Colors
+        let badgeBg = "bg-emerald-50 text-emerald-700 border-emerald-200";
+        if (match.score < 80 && match.score >= 65) badgeBg = "bg-amber-50 text-amber-700 border-amber-200";
+        if (match.score < 65) badgeBg = "bg-slate-100 text-slate-600 border-slate-200";
+
+        // Eligibility Badge
+        let eligBadge = `<span class="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">✅ Eligible</span>`;
+        if (!match.isEligible) {
+          let reason = !match.cgpaEligible ? `Req CGPA ≥ ${opp.minCgpa}` : (!match.yearEligible ? `Year Mismatch` : `Branch Restricted`);
+          eligBadge = `<span class="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">⚠️ ${reason}</span>`;
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm border ${opp.logoBg}">
+                  ${opp.organization.charAt(0)}
+                </div>
+                <div>
+                  <span class="text-xs font-semibold text-slate-500">${opp.organization}</span>
+                  <div class="text-[11px] font-medium text-slate-400">${opp.category}</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="inline-block text-xs font-black px-2.5 py-1 rounded-lg border ${badgeBg}">
+                  ${match.score}% Match
+                </span>
+              </div>
+            </div>
+
+            <h3 class="font-extrabold text-slate-900 text-base mt-3 group-hover:text-sky-600 transition-colors leading-snug">
+              ${opp.title}
+            </h3>
+
+            <p class="text-xs text-slate-600 mt-2 line-clamp-2">
+              ${opp.description}
+            </p>
+
+            <!-- Eligibility & Criteria Tags -->
+            <div class="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
+              ${eligBadge}
+              <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium">Min CGPA: ${opp.minCgpa}</span>
+              <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium">Years: ${opp.eligibleYears.join(', ')}</span>
+            </div>
+
+            <!-- Perks callout -->
+            <div class="mt-3 bg-sky-50/60 border border-sky-100 rounded-xl p-2.5 text-xs text-sky-900 flex items-start gap-2">
+              <span class="text-sky-600 font-bold">🎁</span>
+              <span class="font-medium text-[11px]">${opp.perks}</span>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
+              <span>⏳</span> ${opp.deadlineText}
+            </span>
+            <div class="flex items-center space-x-1.5">
+              <button onclick="saveOpportunityToTracker('${opp.id}')" class="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all">
+                📌 Track
+              </button>
+              <button onclick="applySimulate('${opp.title}')" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white shadow-sm transition-all">
+                Apply ↗
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderMentors() {
+      const container = document.getElementById('mentors-grid');
+      container.innerHTML = '';
+
+      mentorsData.forEach(m => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between";
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 rounded-xl ${m.avatarBg} text-white flex items-center justify-center font-bold text-base shadow-sm">
+                ${m.name.split(' ').map(n=>n[0]).join('')}
+              </div>
+              <div>
+                <h3 class="font-bold text-slate-900 text-sm">${m.name}</h3>
+                <p class="text-xs text-slate-500">${m.title}</p>
+                <span class="text-[11px] font-semibold text-indigo-600">${m.company}</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-600 mt-3 italic line-clamp-2">"${m.bio}"</p>
+
+            <div class="mt-3 pt-3 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Domain:</span>
+                <span class="font-semibold text-slate-700 text-right">${m.domain}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Rating:</span>
+                <span class="font-bold text-amber-500">★ ${m.rating} <span class="text-slate-400 font-normal">(${m.sessions} sessions)</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <button onclick="openBookModal('${m.id}')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2 rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5">
+              <span>📅 Book 1-on-1 Session</span>
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderTracker() {
+      const tbody = document.getElementById('tracker-table-body');
+      tbody.innerHTML = '';
+
+      trackerApplications.forEach(app => {
+        const opp = opportunitiesData.find(o => o.id === app.id);
+        if (!opp) return;
+
+        const row = document.createElement('tr');
+        row.className = "hover:bg-slate-50 transition-colors";
+
+        let badgeUrgency = "bg-slate-100 text-slate-700";
+        if (app.urgency === "Urgent") badgeUrgency = "bg-rose-100 text-rose-700 font-bold";
+        if (app.urgency === "Moderate") badgeUrgency = "bg-amber-100 text-amber-800 font-bold";
+
+        row.innerHTML = `
+          <td class="py-3 px-4 font-bold text-slate-900">${opp.title}</td>
+          <td class="py-3 px-4 text-xs">${opp.category}</td>
+          <td class="py-3 px-4 text-xs font-semibold">${opp.deadline}</td>
+          <td class="py-3 px-4">
+            <span class="text-[11px] px-2 py-0.5 rounded-full ${badgeUrgency}">${app.urgency}</span>
+          </td>
+          <td class="py-3 px-4">
+            <select onchange="updateAppStatus('${app.id}', this.value)" class="text-xs border border-slate-200 rounded-md px-2 py-1 bg-white font-medium">
+              <option value="Saved" ${app.status === 'Saved' ? 'selected' : ''}>📌 Saved</option>
+              <option value="In Progress" ${app.status === 'In Progress' ? 'selected' : ''}>⏳ In Progress</option>
+              <option value="Applied" ${app.status === 'Applied' ? 'selected' : ''}>✅ Applied</option>
+              <option value="Shortlisted" ${app.status === 'Shortlisted' ? 'selected' : ''}>🎉 Shortlisted</option>
+            </select>
+          </td>
+          <td class="py-3 px-4 text-right">
+            <button onclick="removeFromTracker('${app.id}')" class="text-xs text-rose-600 hover:text-rose-800 font-semibold">Remove</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function renderCommunity() {
+      const grid = document.getElementById('community-grid');
+      grid.innerHTML = '';
+
+      communityProjects.forEach(proj => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl border border-slate-200 p-5 shadow-sm";
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between">
+            <span class="text-[11px] font-bold bg-indigo-50 text-indigo-700 px-2.5 py-0.5 rounded-full border border-indigo-200">${proj.domain}</span>
+            <span class="text-[11px] text-slate-400">${proj.time}</span>
+          </div>
+
+          <h3 class="font-extrabold text-slate-900 text-base mt-2">${proj.title}</h3>
+          <p class="text-xs text-slate-500 font-medium mt-0.5">By ${proj.author}</p>
+          <p class="text-xs text-slate-600 mt-2">${proj.description}</p>
+
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-[11px] font-bold text-slate-700 uppercase mb-1.5">Teammates Needed:</div>
+            <div class="flex flex-wrap gap-1.5">
+              ${proj.roles.map(r => `<span class="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md font-medium border border-slate-200">👩‍💻 ${r}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex justify-end">
+            <button onclick="connectProjectAuthor('${proj.author}')" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all">
+              Connect to Collaborate 💬
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ==========================================
+    // UI TAB SWITCHING
+    // ==========================================
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-content-' + tabId).classList.remove('hidden');
+
+      // Update button highlights
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.className = "tab-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-all";
+      });
+      const activeBtn = document.getElementById('nav-' + tabId);
+      if (activeBtn) {
+        activeBtn.className = "tab-btn px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-all bg-sky-500/20 text-sky-300 border border-sky-400/30";
+      }
+
+      if (tabId === 'tracker') renderTracker();
+      if (tabId === 'mentorship') renderMentors();
+      if (tabId === 'community') renderCommunity();
+    }
+
+    function filterCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(pill => {
+        if (pill.dataset.cat === cat) {
+          pill.className = "cat-pill active px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-white shadow-sm transition-all";
+        } else {
+          pill.className = "cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all";
+        }
+      });
+      renderOpportunities();
+    }
+
+    // ==========================================
+    // MODAL LOGIC & ACTIONS
+    // ==========================================
+    function openProfileModal() {
+      document.getElementById('input-name').value = currentProfile.name;
+      document.getElementById('input-branch').value = currentProfile.branch;
+      document.getElementById('input-year').value = currentProfile.year;
+      document.getElementById('input-cgpa').value = currentProfile.cgpa;
+      document.getElementById('cgpa-val-label').textContent = currentProfile.cgpa;
+      document.getElementById('input-skills').value = currentProfile.skills.join(', ');
+      document.getElementById('modal-profile').classList.remove('hidden');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('modal-profile').classList.add('hidden');
+    }
+
+    function updateCgpaLabel(val) {
+      document.getElementById('cgpa-val-label').textContent = val;
+    }
+
+    function saveProfile(e) {
+      e.preventDefault();
+      currentProfile.name = document.getElementById('input-name').value;
+      currentProfile.branch = document.getElementById('input-branch').value;
+      currentProfile.year = parseInt(document.getElementById('input-year').value);
+      currentProfile.cgpa = parseFloat(document.getElementById('input-cgpa').value);
+      currentProfile.skills = document.getElementById('input-skills').value.split(',').map(s=>s.trim()).filter(Boolean);
+
+      // Update header labels
+      document.getElementById('header-student-name').textContent = currentProfile.name;
+      document.getElementById('header-cgpa').textContent = currentProfile.cgpa.toFixed(2);
+      document.getElementById('header-student-info').textContent = `${currentProfile.branch.split(' ')[0]} • Year ${currentProfile.year}`;
+      document.getElementById('stat-branch-label').textContent = `${currentProfile.branch} (Year ${currentProfile.year})`;
+
+      closeProfileModal();
+      renderOpportunities();
+      showToast(`AI Match Engine recalculated scores for CGPA ${currentProfile.cgpa} & Year ${currentProfile.year}!`);
+    }
+
+    function openBookModal(mentorId) {
+      const mentor = mentorsData.find(m => m.id === mentorId);
+      if (!mentor) return;
+      activeBookingMentor = mentor;
+      document.getElementById('booking-mentor-name').textContent = `With ${mentor.name} (${mentor.company})`;
+
+      const slotSelect = document.getElementById('booking-slot-select');
+      slotSelect.innerHTML = '';
+      mentor.slots.forEach(slot => {
+        const opt = document.createElement('option');
+        opt.value = slot;
+        opt.textContent = slot;
+        slotSelect.appendChild(opt);
+      });
+
+      document.getElementById('modal-book-mentor').classList.remove('hidden');
+    }
+
+    function closeBookModal() {
+      document.getElementById('modal-book-mentor').classList.add('hidden');
+    }
+
+    function confirmMentorBooking() {
+      const slot = document.getElementById('booking-slot-select').value;
+      const topic = document.getElementById('booking-topic-select').value;
+      closeBookModal();
+      showToast(`✅ Confirmed! 1-on-1 session booked with ${activeBookingMentor.name} for ${slot}. Meeting link sent to email.`);
+    }
+
+    function openNewProjectModal() {
+      document.getElementById('modal-project').classList.remove('hidden');
+    }
+
+    function closeProjectModal() {
+      document.getElementById('modal-project').classList.add('hidden');
+    }
+
+    function submitNewProject() {
+      const title = document.getElementById('new-proj-title').value.trim();
+      const domain = document.getElementById('new-proj-domain').value.trim();
+      const desc = document.getElementById('new-proj-desc').value.trim();
+      const roles = document.getElementById('new-proj-roles').value.split(',').map(r=>r.trim()).filter(Boolean);
+
+      if (!title || !desc) {
+        alert("Please provide project title and description.");
+        return;
+      }
+
+      communityProjects.unshift({
+        id: `proj-${Date.now()}`,
+        title: title,
+        author: `${currentProfile.name} (${currentProfile.branch.split(' ')[0]})`,
+        domain: domain || "General STEM",
+        description: desc,
+        roles: roles.length ? roles : ["Collaborator"],
+        time: "Just now"
+      });
+
+      closeProjectModal();
+      renderCommunity();
+      showToast("🚀 Your STEM project request has been published to the CONECT network!");
+    }
+
+    function saveOpportunityToTracker(oppId) {
+      if (!trackerApplications.some(t => t.id === oppId)) {
+        trackerApplications.push({ id: oppId, status: "Saved", urgency: "Moderate" });
+        showToast("📌 Added to your Deadline Tracker pipeline!");
+      } else {
+        showToast("Already in your pipeline.");
+      }
+    }
+
+    function removeFromTracker(oppId) {
+      trackerApplications = trackerApplications.filter(t => t.id !== oppId);
+      renderTracker();
+      showToast("Removed from tracker.");
+    }
+
+    function updateAppStatus(oppId, newStatus) {
+      const item = trackerApplications.find(t => t.id === oppId);
+      if (item) item.status = newStatus;
+      showToast(`Status updated to: ${newStatus}`);
+    }
+
+    function applySimulate(title) {
+      showToast(`Redirecting to official verified portal for: ${title}`);
+    }
+
+    function connectProjectAuthor(author) {
+      showToast(`Message invite sent to ${author}!`);
+    }
+
+    function syncCalendarAlert() {
+      showToast("📅 Google Calendar Synced! Reminders set at T-7, T-3, and T-1 days before deadlines.");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderOpportunities();
+      renderMentors();
+      renderCommunity();
+    });
+  </script>
+</body>
+</html>
