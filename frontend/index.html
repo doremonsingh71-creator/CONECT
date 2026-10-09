@@ -11,10 +11,14 @@
       document.write('<script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"><\/script>');
     }
   </script>
+  <link rel="icon" type="image/png" href="assets/logo-emblem.png">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-brand {
+      font-family: 'Outfit', 'Montserrat', sans-serif;
     }
     .font-mono-code {
       font-family: 'JetBrains Mono', monospace;
@@ -44,17 +48,29 @@
       <div class="flex items-center justify-between h-16">
         
         <!-- Left: Logo & IEEE Affiliation -->
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 via-amber-500 to-indigo-500 flex items-center justify-center font-extrabold text-slate-950 text-xl shadow-lg shadow-amber-500/20">
-            C
-          </div>
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-300 via-white to-sky-200 bg-clip-text text-transparent">CONECT</span>
-              <span class="text-[11px] font-semibold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full">IEEE WIE SAMWAD</span>
+        <div class="flex items-center space-x-3.5">
+          <a href="#" class="flex items-center space-x-3 group">
+            <div class="relative w-11 h-11 flex items-center justify-center shrink-0">
+              <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-purple-500/30 to-fuchsia-500/20 blur-md group-hover:blur-lg transition-all"></div>
+              <img src="assets/logo-emblem.png" alt="CONECT Logo" class="relative w-11 h-11 object-contain drop-shadow-[0_4px_12px_rgba(217,70,239,0.35)] group-hover:scale-105 transition-transform" onerror="this.style.display='none'" />
             </div>
-            <p class="text-xs text-slate-400 hidden sm:block">AI Career Discovery & Mentorship Ecosystem for Women in STEM</p>
-          </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <div class="font-brand text-2xl font-black tracking-tight text-white flex items-center leading-none">
+                  <span>CON</span>
+                  <!-- Stylized 3-tier colorful E from logo -->
+                  <span class="inline-flex flex-col justify-center items-center h-[20px] w-[17px] gap-[3px] mx-[2px]">
+                    <span class="w-full h-[3.8px] rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 shadow-sm shadow-fuchsia-500/40"></span>
+                    <span class="w-full h-[3.8px] rounded-full bg-gradient-to-r from-pink-400 to-rose-400 shadow-sm shadow-pink-500/40"></span>
+                    <span class="w-full h-[3.8px] rounded-full bg-gradient-to-r from-sky-400 to-cyan-400 shadow-sm shadow-cyan-500/40"></span>
+                  </span>
+                  <span>CT</span>
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-wider bg-fuchsia-500/15 text-fuchsia-300 border border-fuchsia-400/30 px-2 py-0.5 rounded-full">IEEE WIE</span>
+              </div>
+              <p class="font-brand text-[11px] tracking-wide text-slate-300 font-medium hidden sm:block mt-0.5">A Career Platform for Women in STEM</p>
+            </div>
+          </a>
         </div>
 
         <!-- Center: Navigation Tabs -->
